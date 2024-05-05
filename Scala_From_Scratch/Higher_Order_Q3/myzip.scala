@@ -160,5 +160,3 @@ object myscanright {
   }
 }
 
-
-
