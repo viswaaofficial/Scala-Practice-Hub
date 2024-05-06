@@ -91,3 +91,106 @@ object toZeroOneList{
         toZeroOneList(li)
     }
 }
+
+object twoho{
+    def twoho(a : List[Int],fn: ((x:Int)=>Int),gn: ((x:Int)=>Int)):Unit = {
+        var f = List[Int]()
+        for(i<- 0 until a.length){
+            if(a(i)%2==0){
+                f = f:+ (fn(a(i)))
+            }
+            else{
+                f = f:+ (gn(a(i)))
+            }
+        }
+        f.foreach(println)
+    }
+
+    def main(args:Array[String])={
+        var a = List(1,2,3,4,5,6,7)
+        twoho(a,(_*1),(_*2))
+    }
+}
+
+// a.dropRight(2)
+// a.drop(2)
+
+object mymap{
+    def mymap(a: List[Int],fn: ((x:Int) => Int)):Unit ={
+        var b = List[Int]()
+        for(i<- 0 until a.length){
+            b = b :+ fn(a(i))
+        }
+        b.foreach(println)
+    }
+
+    def main(args:Array[String])={
+        var x = List(1,2,4,5,6)
+        mymap(x,(_+3))
+    }
+}
+
+object myfilter{
+    def myfilter(a: List[Int],fn: ((x:Int) => Boolean)):Unit ={
+        var b = List[Int]()
+        for(i<- 0 until a.length){
+            if(fn(a(i))){
+                b = b:+ a(i)
+            }
+        }
+        b.foreach(println)
+    }
+
+    def main(args:Array[String])={
+        var x = List(1,2,4,5,6)
+        myfilter(x,(_%2==0))
+
+    }
+}
+
+object myreduceleft{
+    def myreduceleft(x:List[Int],fn: ((x:Int,y:Int)=>Int)):Int = {
+        x match{
+            case Nil => 0
+            case x::Nil => x
+            case x::xs => fn(x,myreduceleft(xs,fn))
+        }
+    }
+
+    def main(args:Array[String])={
+        var a = List(1,2,3,4)
+        print(myreduceleft(a,(_+_)))
+    }
+}
+
+object eval1{
+    def eval1(a:Array[Int]):Unit={
+        for(i<- 1 until a.length by 2){
+            if(i!=a.length-1){
+                if(a(i-1)>a(i)){
+                    var temp=a(i-1)
+                    a(i-1)=a(i)
+                    a(i)=temp
+                }
+                if(a(i+1)>a(i)){
+                    var temp=a(i+1)
+                    a(i+1)=a(i)
+                    a(i)=temp
+                }                
+            }
+            else{
+                if(a(i-1)>a(i)){
+                    var temp=a(i-1)
+                    a(i-1)=a(i)
+                    a(i)=temp
+                }
+            }
+        }
+        a.foreach(println)
+    }
+
+    def main(args:Array[String])={
+        var a=Array(1,2,3,4,5,6,7,8)
+        eval1(a)
+    }
+}
