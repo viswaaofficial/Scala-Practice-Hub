@@ -190,7 +190,29 @@ object eval1{
     }
 
     def main(args:Array[String])={
-        var a=Array(1,2,3,4,5,6,7,8)
+        var a=Array(50,1,3,49,60)
         eval1(a)
+    }
+}
+
+object eval2{
+    def eval2(a: String):Unit = {
+        var b = 0
+        var fin = 0
+        for (i<-0 until a.length){
+            if(a(i).isDigit){
+                b = b*10 + a(i).asDigit
+            }
+            if(a(i).isWhitespace){
+                fin=fin+b
+                b=0
+            }
+        }
+        println(fin+b)
+    }
+
+    def main(args:Array[String])={
+        var str = "Viswaa123 Shreyas12"
+        eval2(str)
     }
 }
